@@ -4,6 +4,7 @@ namespace Andreshg112\DatosAbiertos;
 
 use Illuminate\Support\ServiceProvider;
 use Andreshg112\DatosAbiertos\Datasets\Divipola;
+use Andreshg112\DatosAbiertos\Datasets\OrganismoTransito;
 
 class DatosAbiertosServiceProvider extends ServiceProvider
 {
@@ -30,6 +31,10 @@ class DatosAbiertosServiceProvider extends ServiceProvider
         // Register the main class to use with the facade
         $this->app->singleton('divipola', function () {
             return new Divipola;
+        });
+
+        $this->app->singleton('organismo-transito', function () {
+            return new OrganismoTransito;
         });
     }
 }

@@ -9,7 +9,9 @@ Este paquete encapsula las consultas a la API de [Datos Abiertos del Gobierno de
 
 ## Recursos implementados
 
--   [Códigos de la Divisón Político-Administrativa del país (Divipola)](https://dev.socrata.com/foundry/www.datos.gov.co/gdxc-w37w).
+-   [Códigos de la Divisón Político-Administrativa del país (Divipola)](https://www.datos.gov.co/Mapas-Nacionales/DIVIPOLA-Codigos-municipios/gdxc-w37w).
+
+-   [Organismos de Tránsito](https://www.datos.gov.co/Transporte/ORGANISMO-DE-TR-NSITO/88yh-mmbj).
 
 > Si deseas que desarrolle una consulta a otro recurso de datos.gov.co, puedes realizar la petición en los [Issues](../../issues).
 
@@ -34,14 +36,15 @@ Este paquete usa [Laravel Package Discovery](https://laravel.com/docs/5.5/packag
 
 ### Uso básico
 
+Cada recurso hereda de `\Andreshg112\DatosAbiertos\Datasets\BaseDataset`, el cual tiene el método `getData($filterOrSoqlQuery = '')` que permite consultar todos los registros del recurso o [filtrar](uso-de-filtros) de acuerdo a los parámetros.
+
+Por ejemplo:
+
 ```php
 use Andreshg112\DatosAbiertos\Facades\Divipola;
 
 // Listado total de municipios:
 $data = Divipola::getData();
-
-// Para consultar por código de municipio:
-$data = Divipola::getByCodMpio($codMpio);
 ```
 
 ### Uso de filtros
@@ -61,6 +64,14 @@ $data = Divipola::getData($filterOrSoqlQuery);
 ```
 
 > Este paquete usa [allejo/php-soda](https://github.com/allejo/PhpSoda) para realizar las peticiones a los recursos de datos.gov.co usando Socrata Open Data API (SODA), por lo tanto `$filterOrSoqlQuery` puede ser cualquiera de los parámetros aceptados por la función `\allejo\Socrata\SodaDataset::getData(filterOrSoqlQuery)`. Para usar filtros avanzados, dirígete a su [documentación](https://github.com/allejo/PhpSoda/wiki/Simple-Filters) (en inglés).
+
+### Métodos de `\Andreshg112\DatosAbiertos\Facades\Divipola`:
+
+-   `getByCodMpio($codMpio)`: consulta el municipio por código.
+
+### Métodos de `\Andreshg112\DatosAbiertos\Datasets\OrganismoTransito`:
+
+-   `getByCodDivipola($codDivipola)`: consulta el organismo por código de la División Político-Administrativa.
 
 ### Pruebas
 
