@@ -3,7 +3,7 @@
 namespace Andreshg112\DatosAbiertos\Datasets;
 
 /**
- * https://www.datos.gov.co/Transporte/ORGANISMO-DE-TR-NSITO/88yh-mmbj
+ * https://www.datos.gov.co/Transporte/ORGANISMO-DE-TR-NSITO/88yh-mmbj.
  *
  * @method array|null getByCodDivipola(string $value) Consulta los datos de un organismo de tránsito por su código.
  */
