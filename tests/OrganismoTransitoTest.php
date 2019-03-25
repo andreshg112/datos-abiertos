@@ -25,15 +25,15 @@ class OrganismoTransitoTest extends TestCase
     {
         $mockedResponse = [
             [
-                'abreviatura' => "INST MCPAL TTOyTTE VALLEDUPAR",
-                'categor_a' => "A",
-                'ciudad' => "VALLEDUPAR",
-                'cod_divipola' => "20001000",
-                'departamento' => "CESAR",
-                'estado' => "ACTIVO",
-                'jurisdicci_n' => "MUNICIPAL",
-                'organismo_de_tr_nsito' => "INST MCPAL TTOyTTE VALLEDUPAR",
-            ]
+                'abreviatura' => 'INST MCPAL TTOyTTE VALLEDUPAR',
+                'categor_a' => 'A',
+                'ciudad' => 'VALLEDUPAR',
+                'cod_divipola' => '20001000',
+                'departamento' => 'CESAR',
+                'estado' => 'ACTIVO',
+                'jurisdicci_n' => 'MUNICIPAL',
+                'organismo_de_tr_nsito' => 'INST MCPAL TTOyTTE VALLEDUPAR',
+            ],
         ];
 
         OrganismoTransito::shouldReceive('getData')
@@ -48,17 +48,17 @@ class OrganismoTransitoTest extends TestCase
     /** @test */
     public function it_returns_one_organism_by_cod_divipola()
     {
-        $codDivipola = "20001000";
+        $codDivipola = '20001000';
 
         $mockedResponse = [
-            'abreviatura' => "INST MCPAL TTOyTTE VALLEDUPAR",
-            'categor_a' => "A",
-            'ciudad' => "VALLEDUPAR",
-            'cod_divipola' => "20001000",
-            'departamento' => "CESAR",
-            'estado' => "ACTIVO",
-            'jurisdicci_n' => "MUNICIPAL",
-            'organismo_de_tr_nsito' => "INST MCPAL TTOyTTE VALLEDUPAR",
+            'abreviatura' => 'INST MCPAL TTOyTTE VALLEDUPAR',
+            'categor_a' => 'A',
+            'ciudad' => 'VALLEDUPAR',
+            'cod_divipola' => '20001000',
+            'departamento' => 'CESAR',
+            'estado' => 'ACTIVO',
+            'jurisdicci_n' => 'MUNICIPAL',
+            'organismo_de_tr_nsito' => 'INST MCPAL TTOyTTE VALLEDUPAR',
         ];
 
         OrganismoTransito::shouldReceive('getByCodDivipola')

@@ -18,6 +18,7 @@ class Divipola extends BaseDataset
     public function getByCodMpio(string $codMpio)
     {
         $data = $this->getData(['cod_mpio' => $codMpio]);
+
         return $data[0] ?? null;
     }
 }

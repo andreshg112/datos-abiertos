@@ -15,7 +15,7 @@ class DatosAbiertosServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/datos-abiertos.php' => config_path('datos-abiertos.php'),
+                __DIR__.'/../config/datos-abiertos.php' => config_path('datos-abiertos.php'),
             ], 'datos-abiertos');
         }
     }
@@ -26,7 +26,7 @@ class DatosAbiertosServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__ . '/../config/datos-abiertos.php', 'datos-abiertos');
+        $this->mergeConfigFrom(__DIR__.'/../config/datos-abiertos.php', 'datos-abiertos');
 
         // Register the main class to use with the facade
         $this->app->singleton('divipola', function () {
