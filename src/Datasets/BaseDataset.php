@@ -79,9 +79,9 @@ abstract class BaseDataset
     }
 
     /**
-     * Undocumented function
+     * Undocumented function.
      *
-     * @param integer|string $uniqueValue
+     * @param int|string $uniqueValue
      * @return array
      */
     public function find($uniqueValue)
@@ -111,7 +111,7 @@ abstract class BaseDataset
      * Consulta registros del recurso por el valor de una columna.
      *
      * @param string $column
-     * @param integer|string $value
+     * @param int|string $value
      * @return array[]
      */
     public function where(string $column, $value)
