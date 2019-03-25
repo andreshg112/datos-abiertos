@@ -18,6 +18,7 @@ class OrganismoTransito extends BaseDataset
     public function getByCodDivipola(string $codMpio)
     {
         $data = $this->getData(['cod_divipola' => $codMpio]);
+
         return $data[0] ?? null;
     }
 }

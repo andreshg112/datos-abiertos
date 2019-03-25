@@ -23,13 +23,13 @@ class DivipolaTest extends TestCase
     /** @test */
     public function it_returns_one_municipality_by_code()
     {
-        $codMpio = "20001";
+        $codMpio = '20001';
 
         $mockedResponse = [
-            "cod_depto" => "20",
-            "cod_mpio" => $codMpio,
-            "dpto" => "Cesar",
-            "nom_mpio" => "Valledupar"
+            'cod_depto' => '20',
+            'cod_mpio' => $codMpio,
+            'dpto' => 'Cesar',
+            'nom_mpio' => 'Valledupar',
         ];
 
         Divipola::shouldReceive('getByCodMpio')
@@ -47,17 +47,17 @@ class DivipolaTest extends TestCase
     {
         $mockedResponse = [
             [
-                "cod_depto" => "20",
-                "cod_mpio" => "20011",
-                "dpto" => "Cesar",
-                "nom_mpio" => "Aguachica"
+                'cod_depto' => '20',
+                'cod_mpio' => '20011',
+                'dpto' => 'Cesar',
+                'nom_mpio' => 'Aguachica',
             ],
             [
-                "cod_depto" => "20",
-                "cod_mpio" => "20032",
-                "dpto" => "Cesar",
-                "nom_mpio" => "Astrea"
-            ]
+                'cod_depto' => '20',
+                'cod_mpio' => '20032',
+                'dpto' => 'Cesar',
+                'nom_mpio' => 'Astrea',
+            ],
         ];
 
         Divipola::shouldReceive('getData')

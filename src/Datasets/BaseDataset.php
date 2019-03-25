@@ -33,7 +33,7 @@ abstract class BaseDataset
      * Consulta el listado del recurso de acuerdo a los parámetros.
      * Si no se especifican, por defecto trae todos.
      * Para saber cómo usar los filtros, consultar en el siguiente enlace:
-     * https://github.com/allejo/PhpSoda/wiki/Simple-Filters
+     * https://github.com/allejo/PhpSoda/wiki/Simple-Filters.
      *
      * @param array|string|\allejo\Socrata\SoqlQuery $filterOrSoqlQuery Los parámetros de la consulta.
      * @return array[]
