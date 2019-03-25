@@ -3,7 +3,7 @@
 namespace Andreshg112\DatosAbiertos\Datasets;
 
 /**
- * https://www.datos.gov.co/Educaci-n/ESTABLECIMIENTOS-EDUCATIVOS-DE-PREESCOLAR-B-SICA/ea56-rtcx/data
+ * https://www.datos.gov.co/Educaci-n/ESTABLECIMIENTOS-EDUCATIVOS-DE-PREESCOLAR-B-SICA/ea56-rtcx/data.
  */
 class Colegios extends BaseDataset
 {
