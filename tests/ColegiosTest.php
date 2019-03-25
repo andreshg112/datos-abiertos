@@ -51,7 +51,7 @@ class ColegiosTest extends TestCase
                 'secretaria' => 'MEDELLIN',
                 'telefono' => '3115241',
                 'tipo_establecimiento' => 'INSTITUCION EDUCATIVA',
-                'zona' => 'URBANA'
+                'zona' => 'URBANA',
             ],
         ];
 
@@ -96,7 +96,7 @@ class ColegiosTest extends TestCase
             'secretaria' => 'MEDELLIN',
             'telefono' => '3115241',
             'tipo_establecimiento' => 'INSTITUCION EDUCATIVA',
-            'zona' => 'URBANA'
+            'zona' => 'URBANA',
         ];
 
         Colegios::shouldReceive('find')
