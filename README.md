@@ -18,7 +18,7 @@ Este paquete encapsula las consultas a la API de [Datos Abiertos del Gobierno de
 ## Requisitos
 
 -   Laravel >= 5.5
--   PHP >= 7.x.x
+-   PHP >= 7.1.x
 
 > Si quieres soporte para una versión inferior a las especificadas, por favor deja la petición en los [Issues](../../issues) y veré qué puedo hacer.
 

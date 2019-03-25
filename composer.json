@@ -19,7 +19,8 @@
     "require": {
         "php": "^7.1",
         "allejo/php-soda": "^1.0",
-        "illuminate/support": "^5.5"
+        "illuminate/support": "^5.5",
+        "spatie/macroable": "^1.0"
     },
     "require-dev": {
         "codedungeon/phpunit-result-printer": "^0.26.1",

@@ -2,11 +2,15 @@
 
 namespace Andreshg112\DatosAbiertos\Datasets;
 
+use Illuminate\Support\Str;
 use allejo\Socrata\SodaClient;
 use allejo\Socrata\SodaDataset;
+use Spatie\Macroable\Macroable;
 
 abstract class BaseDataset
 {
+    use Macroable;
+
     const SOURCE_DOMAIN = 'datos.gov.co';
 
     /** @var SodaClient $sodaClient */
@@ -15,19 +19,60 @@ abstract class BaseDataset
     /** @var SodaDataset $sodaDataset */
     protected $sodaDataset;
 
+    #region Funciones mágicas
+
     public function __construct()
     {
         $this->sodaClient = new SodaClient(self::SOURCE_DOMAIN, config('datos-abiertos.token'));
 
         $this->sodaDataset = new SodaDataset($this->sodaClient, $this->getDatasetIdentifier());
+
+        $this->addMacroMethods();
     }
 
+    #endregion
+
+    #region Funciones abstractas
+
     /**
-     * Retorna el identificador del dataset o del recurso.
+     * Retorna las columnas del dataset (recurso).
+     *
+     * @return string[]
+     */
+    abstract public function getColumns();
+
+    /**
+     * Retorna el identificador del dataset (recurso).
      *
      * @return string
      */
     abstract protected function getDatasetIdentifier();
+
+    #endregion
+
+    #region Funciones
+
+    /**
+     * Agrega métodos dinámicos para consultar un dataset (recurso) por cada columna que tenga.
+     *
+     * @return void
+     */
+    private function addMacroMethods()
+    {
+        $columns = $this->getColumns();
+
+        foreach ($columns as $column) {
+            static::macro(
+                'getBy' . ucfirst(Str::camel($column['name'])),
+                function ($value) use ($column) {
+                    $data = $this->getData([$column['name']  => $value]);
+
+                    return empty($column['unique'])
+                        ? $data : ($data[0] ?? null);
+                }
+            );
+        }
+    }
 
     /**
      * Consulta el listado del recurso de acuerdo a los parámetros.
@@ -44,4 +89,6 @@ abstract class BaseDataset
 
         return $data;
     }
+
+    #endregion
 }
