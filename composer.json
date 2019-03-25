@@ -1,0 +1,56 @@
+{
+    "name": "andreshg112/datos-abiertos",
+    "description": "Consulta la API de Datos Abiertos del Gobierno de Colombia en la plataforma https://www.datos.gov.co",
+    "keywords": [
+        "andreshg112",
+        "datos-abiertos",
+        "divipola"
+    ],
+    "homepage": "https://github.com/andreshg112/datos-abiertos",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Andrés Herrera García",
+            "email": "andreshg112@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "allejo/php-soda": "^1.0",
+        "illuminate/support": "^5.5"
+    },
+    "require-dev": {
+        "codedungeon/phpunit-result-printer": "^0.26.1",
+        "orchestra/testbench": "3.8.*",
+        "phpunit/phpunit": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Andreshg112\\DatosAbiertos\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Andreshg112\\DatosAbiertos\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Andreshg112\\DatosAbiertos\\DatosAbiertosServiceProvider"
+            ],
+            "aliases": {
+                "Divipola": "Andreshg112\\DatosAbiertos\\Facades\\Divipola"
+            }
+        }
+    }
+}
