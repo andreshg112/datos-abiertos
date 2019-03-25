@@ -23,7 +23,6 @@ build:
             tests:
                 override:
                     - command: composer test
-                        coverage:
-                        file:
-                            build/logs/clover.xml
+                    coverage:
+                        file: build/logs/clover.xml
                         format: clover
