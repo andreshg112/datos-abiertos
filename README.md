@@ -36,7 +36,7 @@ Este paquete usa [Laravel Package Discovery](https://laravel.com/docs/5.5/packag
 
 ### Uso básico
 
-Cada recurso hereda de `\Andreshg112\DatosAbiertos\Datasets\BaseDataset`, el cual tiene el método `getData($filterOrSoqlQuery = '')` que permite consultar todos los registros del recurso o [filtrar](uso-de-filtros) de acuerdo a los parámetros.
+Cada recurso hereda de `\Andreshg112\DatosAbiertos\Datasets\BaseDataset`, el cual tiene el método `getData($filterOrSoqlQuery = '')` que permite consultar todos los registros del recurso o [filtrar](#uso-de-filtros) de acuerdo a los parámetros.
 
 Por ejemplo:
 
