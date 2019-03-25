@@ -19,7 +19,7 @@ abstract class BaseDataset
     /** @var SodaDataset $sodaDataset */
     protected $sodaDataset;
 
-    #region Funciones mágicas
+    //region Funciones mágicas
 
     public function __construct()
     {
@@ -30,9 +30,9 @@ abstract class BaseDataset
         $this->addMacroMethods();
     }
 
-    #endregion
+    //endregion
 
-    #region Funciones abstractas
+    //region Funciones abstractas
 
     /**
      * Retorna las columnas del dataset (recurso).
@@ -48,9 +48,9 @@ abstract class BaseDataset
      */
     abstract protected function getDatasetIdentifier();
 
-    #endregion
+    //endregion
 
-    #region Funciones
+    //region Funciones
 
     /**
      * Agrega métodos dinámicos para consultar un dataset (recurso) por cada columna que tenga.
@@ -63,7 +63,7 @@ abstract class BaseDataset
 
         foreach ($columns as $column) {
             static::macro(
-                'getBy' . ucfirst(Str::camel($column['name'])),
+                'getBy'.ucfirst(Str::camel($column['name'])),
                 function ($value) use ($column) {
                     $data = $this->getData([$column['name']  => $value]);
 
@@ -90,5 +90,5 @@ abstract class BaseDataset
         return $data;
     }
 
-    #endregion
+    //endregion
 }
