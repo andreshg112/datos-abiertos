@@ -9,11 +9,11 @@ Este paquete encapsula las consultas a la API de [Datos Abiertos del Gobierno de
 
 ## Recursos implementados
 
--   [ESTABLECIMIENTOS EDUCATIVOS DE PREESCOLAR, BÁSICA](https://www.datos.gov.co/Educaci-n/ESTABLECIMIENTOS-EDUCATIVOS-DE-PREESCOLAR-B-SICA/ea56-rtcx/data)
+-   [ESTABLECIMIENTOS EDUCATIVOS DE PREESCOLAR, BÁSICA](https://www.datos.gov.co/Educaci-n/ESTABLECIMIENTOS-EDUCATIVOS-DE-PREESCOLAR-B-SICA/ea56-rtcx/data) (`\Andreshg112\DatosAbiertos\Facades\Colegios`).
 
--   [Códigos de la Divisón Político-Administrativa del país (Divipola)](https://www.datos.gov.co/Mapas-Nacionales/DIVIPOLA-Codigos-municipios/gdxc-w37w).
+-   [Códigos de la Divisón Político-Administrativa del país](https://www.datos.gov.co/Mapas-Nacionales/DIVIPOLA-Codigos-municipios/gdxc-w37w) (`\Andreshg112\DatosAbiertos\Facades\Divipola`).
 
--   [Organismos de Tránsito](https://www.datos.gov.co/Transporte/ORGANISMO-DE-TR-NSITO/88yh-mmbj).
+-   [Organismos de Tránsito](https://www.datos.gov.co/Transporte/ORGANISMO-DE-TR-NSITO/88yh-mmbj) (`\Andreshg112\DatosAbiertos\Facades\OrganismosTransito`).
 
 > Si deseas que desarrolle una consulta a otro recurso de datos.gov.co, puedes realizar la petición en los [Issues](../../issues).
 
