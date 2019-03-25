@@ -21,28 +21,6 @@ class DivipolaTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_one_municipality_by_code()
-    {
-        $codMpio = '20001';
-
-        $mockedResponse = [
-            'cod_depto' => '20',
-            'cod_mpio' => $codMpio,
-            'dpto' => 'Cesar',
-            'nom_mpio' => 'Valledupar',
-        ];
-
-        Divipola::shouldReceive('getByCodMpio')
-            ->with($codMpio)
-            ->once()
-            ->andReturn($mockedResponse);
-
-        $data = Divipola::getByCodMpio($codMpio);
-
-        $this->assertArraySubset($mockedResponse, $data);
-    }
-
-    /** @test */
     public function it_returns_a_list_of_municipalities()
     {
         $mockedResponse = [
@@ -65,6 +43,28 @@ class DivipolaTest extends TestCase
             ->andReturn($mockedResponse);
 
         $data = Divipola::getData();
+
+        $this->assertArraySubset($mockedResponse, $data);
+    }
+
+    /** @test */
+    public function it_returns_one_municipality_by_code()
+    {
+        $codMpio = '20001';
+
+        $mockedResponse = [
+            'cod_depto' => '20',
+            'cod_mpio' => $codMpio,
+            'dpto' => 'Cesar',
+            'nom_mpio' => 'Valledupar',
+        ];
+
+        Divipola::shouldReceive('find')
+            ->with($codMpio)
+            ->once()
+            ->andReturn($mockedResponse);
+
+        $data = Divipola::find($codMpio);
 
         $this->assertArraySubset($mockedResponse, $data);
     }

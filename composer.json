@@ -50,8 +50,9 @@
                 "Andreshg112\\DatosAbiertos\\DatosAbiertosServiceProvider"
             ],
             "aliases": {
+                "Colegios": "Andreshg112\\DatosAbiertos\\Facades\\Colegios",
                 "Divipola": "Andreshg112\\DatosAbiertos\\Facades\\Divipola",
-                "OrganismoTransito": "Andreshg112\\DatosAbiertos\\Facades\\OrganismoTransito"
+                "OrganismosTransito": "Andreshg112\\DatosAbiertos\\Facades\\OrganismosTransito"
             }
         }
     }

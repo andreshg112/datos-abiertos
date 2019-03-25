@@ -3,10 +3,10 @@
 namespace Andreshg112\DatosAbiertos\Tests;
 
 use Orchestra\Testbench\TestCase;
-use Andreshg112\DatosAbiertos\Facades\OrganismoTransito;
+use Andreshg112\DatosAbiertos\Facades\OrganismosTransito;
 use Andreshg112\DatosAbiertos\DatosAbiertosServiceProvider;
 
-class OrganismoTransitoTest extends TestCase
+class OrganismosTransitoTest extends TestCase
 {
     protected function getPackageProviders($app)
     {
@@ -16,7 +16,7 @@ class OrganismoTransitoTest extends TestCase
     protected function getPackageAliases($app)
     {
         return [
-            'OrganismoTransito' => OrganismoTransito::class,
+            'OrganismosTransito' => OrganismosTransito::class,
         ];
     }
 
@@ -36,11 +36,11 @@ class OrganismoTransitoTest extends TestCase
             ],
         ];
 
-        OrganismoTransito::shouldReceive('getData')
+        OrganismosTransito::shouldReceive('getData')
             ->once()
             ->andReturn($mockedResponse);
 
-        $data = OrganismoTransito::getData();
+        $data = OrganismosTransito::getData();
 
         $this->assertArraySubset($mockedResponse, $data);
     }
@@ -61,12 +61,12 @@ class OrganismoTransitoTest extends TestCase
             'organismo_de_tr_nsito' => 'INST MCPAL TTOyTTE VALLEDUPAR',
         ];
 
-        OrganismoTransito::shouldReceive('getByCodDivipola')
+        OrganismosTransito::shouldReceive('find')
             ->with($codDivipola)
             ->once()
             ->andReturn($mockedResponse);
 
-        $data = OrganismoTransito::getByCodDivipola($codDivipola);
+        $data = OrganismosTransito::find($codDivipola);
 
         $this->assertArraySubset($mockedResponse, $data);
     }

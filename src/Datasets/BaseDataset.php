@@ -19,7 +19,7 @@ abstract class BaseDataset
     /** @var SodaDataset $sodaDataset */
     protected $sodaDataset;
 
-    //region Funciones mágicas
+    #region Funciones mágicas
 
     public function __construct()
     {
@@ -30,9 +30,9 @@ abstract class BaseDataset
         $this->addMacroMethods();
     }
 
-    //endregion
+    #endregion
 
-    //region Funciones abstractas
+    #region Funciones abstractas
 
     /**
      * Retorna las columnas del dataset (recurso).
@@ -48,9 +48,16 @@ abstract class BaseDataset
      */
     abstract protected function getDatasetIdentifier();
 
-    //endregion
+    /**
+     * Retorna la columna cuyo valor es único dentro del recurso (dataset).
+     *
+     * @return string
+     */
+    abstract protected function getUniqueColumn();
 
-    //region Funciones
+    #endregion
+
+    #region Funciones
 
     /**
      * Agrega métodos dinámicos para consultar un dataset (recurso) por cada columna que tenga.
@@ -63,15 +70,25 @@ abstract class BaseDataset
 
         foreach ($columns as $column) {
             static::macro(
-                'getBy'.ucfirst(Str::camel($column['name'])),
+                'where' . ucfirst(Str::camel($column)),
                 function ($value) use ($column) {
-                    $data = $this->getData([$column['name']  => $value]);
-
-                    return empty($column['unique'])
-                        ? $data : ($data[0] ?? null);
+                    return $this->getData([$column  => $value]);
                 }
             );
         }
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param integer|string $uniqueValue
+     * @return array
+     */
+    public function find($uniqueValue)
+    {
+        $data = $this->where($this->getUniqueColumn(), $uniqueValue);
+
+        return $data[0] ?? null;
     }
 
     /**
@@ -90,5 +107,17 @@ abstract class BaseDataset
         return $data;
     }
 
-    //endregion
+    /**
+     * Consulta registros del recurso por el valor de una columna.
+     *
+     * @param string $column
+     * @param integer|string $value
+     * @return array[]
+     */
+    public function where(string $column, $value)
+    {
+        return $this->getData([$column => $value]);
+    }
+
+    #endregion
 }

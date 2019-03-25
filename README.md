@@ -9,6 +9,8 @@ Este paquete encapsula las consultas a la API de [Datos Abiertos del Gobierno de
 
 ## Recursos implementados
 
+-   [ESTABLECIMIENTOS EDUCATIVOS DE PREESCOLAR, BÁSICA](https://www.datos.gov.co/Educaci-n/ESTABLECIMIENTOS-EDUCATIVOS-DE-PREESCOLAR-B-SICA/ea56-rtcx/data)
+
 -   [Códigos de la Divisón Político-Administrativa del país (Divipola)](https://www.datos.gov.co/Mapas-Nacionales/DIVIPOLA-Codigos-municipios/gdxc-w37w).
 
 -   [Organismos de Tránsito](https://www.datos.gov.co/Transporte/ORGANISMO-DE-TR-NSITO/88yh-mmbj).
@@ -51,27 +53,146 @@ $data = Divipola::getData();
 
 > En la [definición de la API de Divipola](https://dev.socrata.com/foundry/www.datos.gov.co/gdxc-w37w) puedes encontrar los detalles del recurso y el uso de filtros.
 
+> Advertencia: La API de datos.gov.co distingue mayúsculas y minúsculas. Por lo tanto si buscas, por ejemplo, `nom_mpio=valledupar` no aparecerá porque debe tener la `V` mayúscula.
+
 ```php
 use Andreshg112\DatosAbiertos\Facades\Divipola;
 
 // Para filtrar por código de departamento puedes hacer cualquiera de las siguientes formas:
 
-$filterOrSoqlQuery = 'cod_depto=20';
+$filterOrSoqlQuery = 'cod_depto=20'; // esta
 
-$filterOrSoqlQuery = ['cod_depto' => '20'];
+$filterOrSoqlQuery = ['cod_depto' => '20']; // o esta
 
 $data = Divipola::getData($filterOrSoqlQuery);
 ```
 
 > Este paquete usa [allejo/php-soda](https://github.com/allejo/PhpSoda) para realizar las peticiones a los recursos de datos.gov.co usando Socrata Open Data API (SODA), por lo tanto `$filterOrSoqlQuery` puede ser cualquiera de los parámetros aceptados por la función `\allejo\Socrata\SodaDataset::getData(filterOrSoqlQuery)`. Para usar filtros avanzados, dirígete a su [documentación](https://github.com/allejo/PhpSoda/wiki/Simple-Filters) (en inglés).
 
-### Métodos de `\Andreshg112\DatosAbiertos\Facades\Divipola`:
+## Extender la funcionalidad
 
--   `getByCodMpio($codMpio)`: consulta el municipio por código.
+### Macroable
 
-### Métodos de `\Andreshg112\DatosAbiertos\Datasets\OrganismoTransito`:
+La clase padre `\Andreshg112\DatosAbiertos\Datasets\BaseDataset` de los recursos (datasets) usa el trait `\Spatie\Macroable\Macroable` de [spatie/macroable](https://github.com/spatie/macroable), por lo que puedes extender la funcionalidad de cada recurso de la siguiente manera:
 
--   `getByCodDivipola($codDivipola)`: consulta el organismo por código de la División Político-Administrativa.
+```php
+use Andreshg112\DatosAbiertos\Facades\OrganismosTransito;
+
+OrganismosTransito::macro('whereEstadoLimit', function($estado, $limit){
+    $filter = [
+        '$where' => "estado = '$estado'", // https://dev.socrata.com/docs/queries
+        '$limit' => $limit, // 1, 2, 3, etc.
+    ];
+
+    return $this->getData($filter);
+});
+
+$data = OrganismosTransito::whereEstadoLimit('ACTIVO', 3);
+```
+
+Para más información, dirígete a su [documentación](https://github.com/spatie/macroable).
+
+### Crear tu propio recurso
+
+Puedes crear tu propio dataset que herede de `\Andreshg112\DatosAbiertos\Datasets\BaseDataset` de la siguiente manera:
+
+> Este recurso será implementado en el paquete, solo se coloca de ejemplo.
+
+```php
+<?php
+
+use Andreshg112\DatosAbiertos\Datasets\BaseDataset;
+
+namespace App\Datasets;
+
+/**
+ * https://www.datos.gov.co/Educaci-n/colegios/u3ch-n6ec
+ */
+class Colegios extends BaseDataset
+{
+    public function getColumns()
+    {
+        return [
+            'a_o', // año.
+            'calendario',
+            'codigo_etc', // nombre_Rector
+            'codigodepartamento', 'codigoestablecimiento',
+            'codigomunicipio', 'correo_electronico', 'direccion', 'discapacidades', 'especialidad',
+            'estrato_socio_economico', 'etnias', 'grados', 'idiomas', 'internado', 'jornada',
+            'matricula_contratada', 'modelos', 'modelos_educativos', 'niveles', 'nombredepartamento',
+            'nombreestablecimiento', 'nombremunicipio', 'numero_de_sedes', 'prestador_de_servicio',
+            'propiedad_planta_fisica', 'resguardo', 'secretaria', 'telefono', 'tipo_establecimiento',
+            'zona',
+        ];
+    }
+
+    protected function getDatasetIdentifier()
+    {
+        // El código del recurso, que es la última parte de la URL sin el .json
+        // https://www.datos.gov.co/resource/xax6-k7eu.json
+        return 'xax6-k7eu';
+    }
+
+    protected function getUniqueColumn()
+    {
+        return 'codigoestablecimiento';
+    }
+}
+```
+
+> La API no acepta tildes, `ñ` o caracteres especiales en los nombres.
+
+Luego, tendrás que hacer un [Facade](https://laravel.com/docs/5.5/facades) para la clase y está listo para usarse.
+
+## Métodos de los recursos (datasets)
+
+Todos los recursos permiten el [filtrado avanzado](https://dev.socrata.com/docs/queries) a través del método `getData($filterOrSoqlQuery)`, pero para búsquedas simples, se puede usar el método `where(string $column, $value)` de la siguiente manera:
+
+```php
+use Facades\App\Datasets\Colegios;
+
+$data = Colegios::where('modelos_educativos', 'EDUCACIÓN TRADICIONAL');
+```
+
+Las columnas del recurso o dataset (ya sea incluido o personalizado), que se indican en `getColumns()`, permiten acceden dinámicamente a métodos de acuerdo con los nombres transformados en camelCase, y el prefijo `where` con la primera letra mayúscula por ejemplo:
+
+```php
+use Facades\App\Datasets\Colegios;
+use Andreshg112\DatosAbiertos\Facades\Divipola;
+use Andreshg112\DatosAbiertos\Facades\OrganismosTransito;
+
+// nombredepartamento
+Colegios::whereNombredepartamento('Cesar'); // d minúscula porque no tiene subguión.
+
+// nom_mpio
+Divipola::whereNomMpio('Valledupar'); // M mayúscula porque tiene subguión.
+
+// categor_a
+OrganismosTransito::whereCategorA('A'); // A mayúscula porque tiene un subguión antes.
+```
+
+Todos los métodos retornan un vector de registros (array de arrays). Si se desea consultar un solo registro a través de la columna con valor único, entonces se hace uso de la función `find($uniqueValue)`. Esto hace que el método solo retorne un solo registro (array) en vez de un vector de registros. Por ejemplo:
+
+```php
+use Andreshg112\DatosAbiertos\Facades\Colegios; // Esta es la implementación incluída.
+
+$data = Colegios::find(147707000156);
+
+// Es equivalente a:
+$data = Colegios::whereCodigoestablecimiento(147707000156)[0];
+
+// y a:
+$data = Colegios::where('codigoestablecimiento', 147707000156)[0];
+
+```
+
+### Columnas de valor único:
+
+-   Colegios: codigo_establecimiento
+-   Divipola: cod_mpio
+-   OrganismosTransito: cod_divipola
+
+> Los nombres de las columnas están especificados en la definición de la API de cada recurso en la plataforma de [Datos Abiertos](https://www.datos.gov.co).
 
 ### Pruebas
 

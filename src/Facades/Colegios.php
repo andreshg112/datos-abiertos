@@ -5,9 +5,9 @@ namespace Andreshg112\DatosAbiertos\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Andreshg112\DatosAbiertos\Datasets\OrganismoTransito
+ * @see \Andreshg112\DatosAbiertos\Datasets\Colegios
  */
-class OrganismoTransito extends Facade
+class Colegios extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -16,6 +16,6 @@ class OrganismoTransito extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'organismo-transito';
+        return 'colegios';
     }
 }
