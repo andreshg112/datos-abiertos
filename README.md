@@ -1,24 +1,24 @@
-# datos.gov.co para Laravel
+# [Datos Abiertos de Colombia](https://www.datos.gov.co) para Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/andreshg112/datos-abiertos.svg?style=flat-square)](https://packagist.org/packages/andreshg112/datos-abiertos)
-[![Build Status](https://img.shields.io/travis/andreshg112/datos-abiertos/master.svg?style=flat-square)](https://travis-ci.org/andreshg112/datos-abiertos)
+[![Build Status](https://travis-ci.com/andreshg112/datos-abiertos.svg?branch=master)](https://travis-ci.com/andreshg112/datos-abiertos)
 [![Quality Score](https://img.shields.io/scrutinizer/g/andreshg112/datos-abiertos.svg?style=flat-square)](https://scrutinizer-ci.com/g/andreshg112/datos-abiertos)
 [![Total Downloads](https://img.shields.io/packagist/dt/andreshg112/datos-abiertos.svg?style=flat-square)](https://packagist.org/packages/andreshg112/datos-abiertos)
 
-Este paquete encapsula las consultas a la API de [Datos Abiertos del Gobierno de Colombia](datos.gov.co).
+Este paquete encapsula las consultas a la API de [Datos Abiertos del Gobierno de Colombia](https://www.datos.gov.co).
 
 ## Recursos implementados
 
 -   [Códigos de la Divisón Político-Administrativa del país (Divipola)](https://dev.socrata.com/foundry/www.datos.gov.co/gdxc-w37w).
 
-> Si deseas que desarrolle una consulta a otro recurso de datos.gov.co, puedes realizar la petición en los [Issues](issues).
+> Si deseas que desarrolle una consulta a otro recurso de datos.gov.co, puedes realizar la petición en los [Issues](../../issues).
 
 ## Requisitos
 
 -   Laravel >= 5.5
 -   PHP >= 7.x.x
 
-> Si quieres soporte para una versión inferior a las especificadas, por favor deja la petición en los [Issues](issues) y veré qué puedo hacer.
+> Si quieres soporte para una versión inferior a las especificadas, por favor deja la petición en los [Issues](../../issues) y veré qué puedo hacer.
 
 ## Instalación
 
@@ -70,7 +70,7 @@ composer test
 
 ### Registro de cambios
 
-Por favor, mira el listado de [Versiones](releases) para obtener más información sobre lo que ha cambiado recientemente.
+Por favor, mira el listado de [Versiones](../../releases) para obtener más información sobre lo que ha cambiado recientemente.
 
 ## Contribuir
 
