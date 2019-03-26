@@ -79,17 +79,31 @@ $data = Divipola::getData($filterOrSoqlQuery);
 La clase padre `\Andreshg112\DatosAbiertos\Datasets\BaseDataset` de los recursos (datasets) usa el trait `\Spatie\Macroable\Macroable` de [spatie/macroable](https://github.com/spatie/macroable), por lo que puedes extender la funcionalidad de cada recurso de la siguiente manera:
 
 ```php
+// En el archivo app/Providers/AppServiceProvider.php:
+
 use Andreshg112\DatosAbiertos\Facades\OrganismosTransito;
 
-OrganismosTransito::macro('whereEstadoLimit', function($estado, $limit){
-    $filter = [
-        '$where' => "estado = '$estado'", // https://dev.socrata.com/docs/queries
-        '$limit' => $limit, // 1, 2, 3, etc.
-    ];
+class AppServiceProvider extends ServiceProvider
+{
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        OrganismosTransito::macro('whereEstadoLimit', function($estado, $limit){
+            $filter = [
+                '$where' => "estado = '$estado'", // https://dev.socrata.com/docs/queries
+                '$limit' => $limit, // 1, 2, 3, etc.
+            ];
 
-    return $this->getData($filter);
-});
+            return $this->getData($filter);
+        });
+    }
+}
 
+// Y luego, en cualquier otra parte:
 $data = OrganismosTransito::whereEstadoLimit('ACTIVO', 3);
 ```
 
@@ -145,14 +159,18 @@ class Colegios extends BaseDataset
 
 > La API no acepta tildes, `ñ` o caracteres especiales en los nombres.
 
-Luego, tendrás que hacer un [Facade](https://laravel.com/docs/5.5/facades) para la clase y está listo para usarse.
+Luego, tendrás que hacer una [fachada](https://laravel.com/docs/5.5/facades) para la clase y está listo para usarse. Puede ser una [fachada en tiempo real](https://laravel.com/docs/5.5/facades#real-time-facades) colocando el namespace `Facades` antes del namespace de la clase, así:
+
+```php
+use Facades\App\Datasets\Colegios;
+```
 
 ## Métodos de los recursos (datasets)
 
 Todos los recursos permiten el [filtrado avanzado](https://dev.socrata.com/docs/queries) a través del método `getData($filterOrSoqlQuery)`, pero para búsquedas simples, se puede usar el método `where(string $column, $value)` de la siguiente manera:
 
 ```php
-use Facades\App\Datasets\Colegios;
+use Facades\App\Datasets\Colegios; // Fachada en tiempo real.
 
 $data = Colegios::where('modelos_educativos', 'EDUCACIÓN TRADICIONAL');
 ```
@@ -182,10 +200,10 @@ use Andreshg112\DatosAbiertos\Facades\Colegios; // Esta es la implementación in
 $data = Colegios::find(147707000156);
 
 // Es equivalente a:
-$data = Colegios::whereCodigoestablecimiento(147707000156)[0];
+$data = Colegios::whereCodigoestablecimiento(147707000156)[0] ?? null;
 
 // y a:
-$data = Colegios::where('codigoestablecimiento', 147707000156)[0];
+$data = Colegios::where('codigoestablecimiento', 147707000156)[0] ?? null;
 
 ```
 
